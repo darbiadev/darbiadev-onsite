@@ -1,0 +1,420 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>darbiadev_onsite.lib.lib &mdash; darbiadev-onsite 0.2.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> darbiadev-onsite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">darbiadev-onsite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>darbiadev_onsite.lib.lib</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for darbiadev_onsite.lib.lib</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span> <span class="nn">jaydebeapi</span>
+<span class="kn">import</span> <span class="nn">pandas</span>
+
+<span class="n">package_directory</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
+
+
+<div class="viewcode-block" id="OnSiteServices"><a class="viewcode-back" href="../../../api/darbiadev_onsite.lib.html#darbiadev_onsite.lib.lib.OnSiteServices">[docs]</a><span class="k">class</span> <span class="nc">OnSiteServices</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A class wrapping an ODBC connection to OnSite.</span>
+
+<span class="sd">    This class wraps an ODBC connection to OnSite.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">connection_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">username</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">password</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_connection_url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">connection_url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__password</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">password</span>
+
+    <span class="k">def</span> <span class="nf">_connect</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="n">jaydebeapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
+            <span class="s1">&#39;com.filemaker.jdbc.Driver&#39;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_connection_url</span><span class="p">,</span>
+            <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__password</span><span class="p">],</span>
+            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">package_directory</span><span class="si">}</span><span class="s1">/vendor/fmjdbc.jar&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="OnSiteServices.onsite_order_details"><a class="viewcode-back" href="../../../api/darbiadev_onsite.lib.html#darbiadev_onsite.lib.lib.OnSiteServices.onsite_order_details">[docs]</a>    <span class="k">def</span> <span class="nf">onsite_order_details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order_number</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">       SELECT </span>
+<span class="s2">           Orders.date_Creation,</span>
+<span class="s2">           Orders.gn_ID_User,</span>
+<span class="s2">           Orders.ID_Order,</span>
+<span class="s2">           Orders.id_Customer,</span>
+<span class="s2">           Orders.date_OrderPlaced,</span>
+<span class="s2">           Orders.date_OrderRequestedToShip,</span>
+<span class="s2">           Orders.date_OrderDropDead,</span>
+<span class="s2">           Orders.id_OrderTypeSerial,</span>
+<span class="s2">           Orders.id_OrderType,</span>
+<span class="s2">           Orders.gt_ContactDepartment,</span>
+<span class="s2">           Orders.gt_ContactNameFull,</span>
+<span class="s2">           Orders.gt_ContactTitle,</span>
+<span class="s2">           Orders.ContactFirst,</span>
+<span class="s2">           Orders.ContactLast,</span>
+<span class="s2">           Orders.ContactPhone,</span>
+<span class="s2">           Orders.ContactFax,</span>
+<span class="s2">           Orders.ContactEmail,</span>
+<span class="s2">           Orders.NotesOnOrder,</span>
+<span class="s2">           Orders.ContactTitle,</span>
+<span class="s2">           Orders.ContactDepartment,</span>
+<span class="s2">           Orders.CustomerPurchaseOrder,</span>
+<span class="s2">           Orders.TermsName,</span>
+<span class="s2">           Orders.id_EmpSalesperson,</span>
+<span class="s2">           Orders.id_EmpCreatedBy,</span>
+<span class="s2">           Orders.CustomerType,</span>
+<span class="s2">           Orders.id_CompanyLocation,</span>
+<span class="s2">           Orders.id_EmployeeOwn,</span>
+<span class="s2">           Orders.sts_GroupSalesMain,</span>
+<span class="s2">           Orders.sts_Invoiced,</span>
+<span class="s2">           Orders.cn_sts_HoldOrderGraphic,</span>
+<span class="s2">           Orders.sts_ArtDone,</span>
+<span class="s2">           Orders.sts_Purchased,</span>
+<span class="s2">           Orders.sts_PurchasedSub,</span>
+<span class="s2">           Orders.sts_Received,</span>
+<span class="s2">           Orders.sts_ReceivedSub,</span>
+<span class="s2">           Orders.sts_Produced,</span>
+<span class="s2">           Orders.sts_Shipped,</span>
+<span class="s2">           Orders.sts_OwnershipMode,</span>
+<span class="s2">           Orders.sts_OwnershipType,</span>
+<span class="s2">           Orders.ct_id_EmployeeOwn,</span>
+<span class="s2">           Orders.sts_Attachment,</span>
+<span class="s2">           Orders.cn_sts_HoldOrder,</span>
+<span class="s2">           Orders.cn_sts_Rush,</span>
+<span class="s2">           Orders.sts_RushOverride,</span>
+<span class="s2">           Orders.sts_Activity,</span>
+<span class="s2">           Orders.sts_Paid,</span>
+<span class="s2">           Orders.sts_BackOrder,</span>
+<span class="s2">           Orders.sts_EDP_Hold,</span>
+<span class="s2">           Orders.CustomerServiceRep,</span>
+<span class="s2">           Orders.cn_sts_ShippingSpecType,</span>
+<span class="s2">           Orders.HoldOrderText,</span>
+<span class="s2">           Orders.id_SalesStatus,</span>
+<span class="s2">           Orders.CompanyName,</span>
+<span class="s2">           Orders.DesignTitleBlock,</span>
+<span class="s2">           Orders.id_DesignBlock,</span>
+<span class="s2">           Orders.gt_ID_Block,</span>
+<span class="s2">           Orders.ct_ContactNameFull,</span>
+<span class="s2">           Orders.cn_sts_Assembly,</span>
+<span class="s2">           Orders.cn_TotalProductQty_Pricing,</span>
+<span class="s2">           Orders.date_OrderInvoiced,</span>
+<span class="s2">           Orders.Invoice_Field01,</span>
+<span class="s2">           Orders.Invoice_Field02,</span>
+<span class="s2">           Orders.EmployeeNamePurchasing,</span>
+<span class="s2">           Orders.date_Stamp_Invoiced,</span>
+<span class="s2">           Orders.id_Employee_Stamp_Invoiced,</span>
+<span class="s2">           Orders.TermsDays,</span>
+<span class="s2">           Orders.cd_date_PaymentDue,</span>
+<span class="s2">           Orders.date_Today,</span>
+<span class="s2">           Orders.cn_sts_Receivable,</span>
+<span class="s2">           Orders.NotesOnArt,</span>
+<span class="s2">           Orders.NotesOnReceiving,</span>
+<span class="s2">           Orders.NotesOnProduction,</span>
+<span class="s2">           Orders.NotesOnShipping,</span>
+<span class="s2">           Orders.NotesOnAccounting,</span>
+<span class="s2">           Orders.cn_TotalProductQty_Act,</span>
+<span class="s2">           Orders.cn_TotalProductQty_Current,</span>
+<span class="s2">           Orders.cn_TotalProductQty_Imprints,</span>
+<span class="s2">           Orders.id_ReceivingStatus,</span>
+<span class="s2">           Orders.id_DiscountLevel,</span>
+<span class="s2">           Orders.per_Discount,</span>
+<span class="s2">           Orders.DiscountNote,</span>
+<span class="s2">           Orders.cur_DiscountFlat,</span>
+<span class="s2">           Orders.date_External,</span>
+<span class="s2">           Orders.ExtSource,</span>
+<span class="s2">           Orders.ExtOrderID,</span>
+<span class="s2">           Orders.gt_SFFilterLayout_Receivables,</span>
+<span class="s2">           Orders.TextOrder,</span>
+<span class="s2">           Orders.ct_TextOrder,</span>
+<span class="s2">           Orders.gd_DateAgingAsOf,</span>
+<span class="s2">           Orders.date_ForAging,</span>
+<span class="s2">           Orders.id_ShippingStatus,</span>
+<span class="s2">           Orders.cn_TotalProductQty_ToProduce,</span>
+<span class="s2">           Orders.date_ProductionScheduled,</span>
+<span class="s2">           Orders.cd_date_Shipped_Max,</span>
+<span class="s2">           Orders.gt_FormFilter,</span>
+<span class="s2">           Orders.sum_cur_Shipping,</span>
+<span class="s2">           Orders.sum_cur_Subtotal,</span>
+<span class="s2">           Orders.cn_EventTimeSetup,</span>
+<span class="s2">           Orders.cn_EventTimeRun,</span>
+<span class="s2">           Orders.cn_EventTimeJob,</span>
+<span class="s2">           Orders.cm_EventTimeJobDisplay,</span>
+<span class="s2">           Orders.cm_EventTimeRunDisplay,</span>
+<span class="s2">           Orders.cm_EventTimeSetupDisplay,</span>
+<span class="s2">           Orders.cn_MachinesUsed,</span>
+<span class="s2">           Orders.cn_EventDesignCount,</span>
+<span class="s2">           Orders.cn_DesignCount,</span>
+<span class="s2">           Orders.cn_LocationCount,</span>
+<span class="s2">           Orders.cn_EventLocationCount,</span>
+<span class="s2">           Orders.cn_EventUsingDesignCount,</span>
+<span class="s2">           Orders.cn_EventNotUsingDesignCount,</span>
+<span class="s2">           Orders.cn_EventUsingDesignQty,</span>
+<span class="s2">           Orders.cn_EventNotUsingDesignQty,</span>
+<span class="s2">           Orders.cn_DaysToComplete,</span>
+<span class="s2">           Orders.cn_DaysLate,</span>
+<span class="s2">           Orders.date_OrderShipped,</span>
+<span class="s2">           Orders.date_DesignScheduled,</span>
+<span class="s2">           Orders.cn_StitchCount,</span>
+<span class="s2">           Orders.cn_ColorsCount,</span>
+<span class="s2">           Orders.sum_cn_ColorsCount,</span>
+<span class="s2">           Orders.sum_cn_EventTimeJob,</span>
+<span class="s2">           Orders.sum_cn_LocationCount,</span>
+<span class="s2">           Orders.sum_cn_StitchCount,</span>
+<span class="s2">           Orders.sum_cn_TotalProductQty_Imprints,</span>
+<span class="s2">           Orders.sum_cn_TotalProductQty_ToProduce,</span>
+<span class="s2">           Orders.sum_cn_DesignCount,</span>
+<span class="s2">           Orders.sum_cm_EventTimeRunDisplay,</span>
+<span class="s2">           Orders.sum_cm_EventTimeSetupDisplay,</span>
+<span class="s2">           Orders.sum_cm_EventTimejobDisplay,</span>
+<span class="s2">           Orders.date_ProductionDone,</span>
+<span class="s2">           Orders.date_DesignDone,</span>
+<span class="s2">           Orders.NotesOnHold,</span>
+<span class="s2">           Orders.NotesToArt,</span>
+<span class="s2">           Orders.NotesToPurchasing,</span>
+<span class="s2">           Orders.NotesToReceiving,</span>
+<span class="s2">           Orders.NotesToProduction,</span>
+<span class="s2">           Orders.NotesToFinishing,</span>
+<span class="s2">           Orders.NotesFormsOrderApproval,</span>
+<span class="s2">           Orders.NotesToAccounting,</span>
+<span class="s2">           Orders.NotesFormsInvoice,</span>
+<span class="s2">           Orders.NotesFormsPackingList,</span>
+<span class="s2">           Orders.NotesToWebCustomer,</span>
+<span class="s2">           Orders.NotesToWebSalesperson,</span>
+<span class="s2">           Orders.NotesToShipping,</span>
+<span class="s2">           Orders.NotesOnPurchasing,</span>
+<span class="s2">           Orders.NotesToPurchasingSub,</span>
+<span class="s2">           Orders.NotesOnPurchasingSub</span>
+<span class="s2">           FROM Orders </span>
+<span class="s2">           WHERE Orders.ID_Order = </span><span class="si">{</span><span class="n">order_number</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">     &quot;&quot;&quot;</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">connection</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s1">&#39;ID_Order&#39;</span><span class="p">:</span> <span class="s1">&#39;int32&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="OnSiteServices.onsite_order_line_details"><a class="viewcode-back" href="../../../api/darbiadev_onsite.lib.html#darbiadev_onsite.lib.lib.OnSiteServices.onsite_order_line_details">[docs]</a>    <span class="k">def</span> <span class="nf">onsite_order_line_details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order_number</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">        SELECT</span>
+<span class="s2">           LinesOE.ID_LineOE,</span>
+<span class="s2">           LinesOE.PartNumber,</span>
+<span class="s2">           LinesOE.PartColorRange,</span>
+<span class="s2">           LinesOE.PartColor,</span>
+<span class="s2">           LinesOE.PartDescription,</span>
+<span class="s2">           LinesOE.Size01_Req,</span>
+<span class="s2">           LinesOE.Size02_Req,</span>
+<span class="s2">           LinesOE.Size03_Req,</span>
+<span class="s2">           LinesOE.Size04_Req,</span>
+<span class="s2">           LinesOE.Size05_Req,</span>
+<span class="s2">           LinesOE.Size06_Req,</span>
+<span class="s2">           LinesOE.cn_LineQuantity_Req,</span>
+<span class="s2">           LinesOE.id_OrderType,</span>
+<span class="s2">           LinesOE.OrderInstructions,</span>
+<span class="s2">           LinesOE.OrderInvoiceNotes</span>
+<span class="s2">        FROM LinesOE</span>
+<span class="s2">        WHERE LinesOE.id_order = </span><span class="si">{</span><span class="n">order_number</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">     &quot;&quot;&quot;</span>
+
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">connection</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Darbia.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+darbiadev\_onsite.lib package
+=============================
+
+Submodules
+----------
+
+darbiadev\_onsite.lib.lib module
+--------------------------------
+
+.. automodule:: darbiadev_onsite.lib.lib
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: darbiadev_onsite.lib
+   :members:
+   :undoc-members:
+   :show-inheritance:
