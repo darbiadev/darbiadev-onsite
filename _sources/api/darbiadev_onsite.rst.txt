@@ -1,13 +1,16 @@
 darbiadev\_onsite package
 =========================
 
-Subpackages
------------
+Submodules
+----------
 
-.. toctree::
-   :maxdepth: 4
+darbiadev\_onsite.lib module
+----------------------------
 
-   darbiadev_onsite.lib
+.. automodule:: darbiadev_onsite.lib
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Module contents
 ---------------

@@ -7,14 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>darbiadev_onsite.lib.lib &mdash; darbiadev-onsite 0.2.0 documentation</title>
+  <title>darbiadev_onsite.lib &mdash; darbiadev-onsite 0.4.0 documentation</title>
   
 
   
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -26,21 +26,21 @@
 
   
   <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
+    <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
     
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
     
-    <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -54,7 +54,7 @@
           
 
           
-            <a href="../../../index.html" class="icon icon-home"> darbiadev-onsite
+            <a href="../../index.html" class="icon icon-home"> darbiadev-onsite
           
 
           
@@ -67,7 +67,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -100,7 +100,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">darbiadev-onsite</a>
+          <a href="../../index.html">darbiadev-onsite</a>
         
       </nav>
 
@@ -131,11 +131,11 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>darbiadev_onsite.lib.lib</li>
+      <li>darbiadev_onsite.lib</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -150,19 +150,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for darbiadev_onsite.lib.lib</h1><div class="highlight"><pre>
+  <h1>Source code for darbiadev_onsite.lib</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 
-<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">importlib.resources</span> <span class="kn">import</span> <span class="n">files</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">import</span> <span class="nn">jaydebeapi</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
-
-<span class="n">package_directory</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
 
 
-<div class="viewcode-block" id="OnSiteServices"><a class="viewcode-back" href="../../../api/darbiadev_onsite.lib.html#darbiadev_onsite.lib.lib.OnSiteServices">[docs]</a><span class="k">class</span> <span class="nc">OnSiteServices</span><span class="p">:</span>
+<div class="viewcode-block" id="OnSiteServices"><a class="viewcode-back" href="../../api/darbiadev_onsite.html#darbiadev_onsite.lib.OnSiteServices">[docs]</a><span class="k">class</span> <span class="nc">OnSiteServices</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A class wrapping an ODBC connection to OnSite.</span>
 
 <span class="sd">    This class wraps an ODBC connection to OnSite.</span>
@@ -185,11 +182,24 @@
             <span class="s1">&#39;com.filemaker.jdbc.Driver&#39;</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_connection_url</span><span class="p">,</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__password</span><span class="p">],</span>
-            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">package_directory</span><span class="si">}</span><span class="s1">/vendor/fmjdbc.jar&#39;</span><span class="p">,</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">files</span><span class="p">(</span><span class="s1">&#39;darbiadev_onsite&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;vendor/fmjdbc.jar&#39;</span><span class="p">)),</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="OnSiteServices.onsite_order_details"><a class="viewcode-back" href="../../../api/darbiadev_onsite.lib.html#darbiadev_onsite.lib.lib.OnSiteServices.onsite_order_details">[docs]</a>    <span class="k">def</span> <span class="nf">onsite_order_details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order_number</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">_make_query</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">sql</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span> <span class="k">as</span> <span class="n">connection</span><span class="p">:</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+
+            <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">description</span><span class="p">]</span>
+            <span class="k">return</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">columns</span><span class="p">,</span> <span class="n">row</span><span class="p">))</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()]</span>
+
+<div class="viewcode-block" id="OnSiteServices.get_order"><a class="viewcode-back" href="../../api/darbiadev_onsite.html#darbiadev_onsite.lib.OnSiteServices.get_order">[docs]</a>    <span class="k">def</span> <span class="nf">get_order</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">order_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
         <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">       SELECT </span>
 <span class="s2">           Orders.date_Creation,</span>
@@ -341,13 +351,12 @@
 <span class="s2">           FROM Orders </span>
 <span class="s2">           WHERE Orders.ID_Order = </span><span class="si">{</span><span class="n">order_number</span><span class="si">}</span><span class="s2"></span>
 <span class="s2">     &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">sql</span><span class="p">)</span></div>
 
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">connection</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">astype</span><span class="p">({</span><span class="s1">&#39;ID_Order&#39;</span><span class="p">:</span> <span class="s1">&#39;int32&#39;</span><span class="p">})</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
-
-<div class="viewcode-block" id="OnSiteServices.onsite_order_line_details"><a class="viewcode-back" href="../../../api/darbiadev_onsite.lib.html#darbiadev_onsite.lib.lib.OnSiteServices.onsite_order_line_details">[docs]</a>    <span class="k">def</span> <span class="nf">onsite_order_line_details</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order_number</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="n">connection</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">()</span>
+<div class="viewcode-block" id="OnSiteServices.get_order_lines"><a class="viewcode-back" href="../../api/darbiadev_onsite.html#darbiadev_onsite.lib.OnSiteServices.get_order_lines">[docs]</a>    <span class="k">def</span> <span class="nf">get_order_lines</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">order_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
         <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
 <span class="s2">        SELECT</span>
 <span class="s2">           LinesOE.ID_LineOE,</span>
@@ -368,10 +377,90 @@
 <span class="s2">        FROM LinesOE</span>
 <span class="s2">        WHERE LinesOE.id_order = </span><span class="si">{</span><span class="n">order_number</span><span class="si">}</span><span class="s2"></span>
 <span class="s2">     &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">sql</span><span class="p">)</span></div>
 
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pandas</span><span class="o">.</span><span class="n">read_sql</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">connection</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(</span><span class="s1">&#39;records&#39;</span><span class="p">)</span></div></div>
+<div class="viewcode-block" id="OnSiteServices.get_address"><a class="viewcode-back" href="../../api/darbiadev_onsite.html#darbiadev_onsite.lib.OnSiteServices.get_address">[docs]</a>    <span class="k">def</span> <span class="nf">get_address</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">order_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">            SELECT &quot;All&quot;,</span>
+<span class="s2">               date_creation,</span>
+<span class="s2">               date_modification,</span>
+<span class="s2">               gn_id_address,</span>
+<span class="s2">               gn_id_unique,</span>
+<span class="s2">               gn_id_user,</span>
+<span class="s2">               id_address,</span>
+<span class="s2">               id_unique,</span>
+<span class="s2">               sts_archive,</span>
+<span class="s2">               time_creation,</span>
+<span class="s2">               time_modification,</span>
+<span class="s2">               timestamp_creation,</span>
+<span class="s2">               timestamp_modification,</span>
+<span class="s2">               id_customer,</span>
+<span class="s2">               id_vendor,</span>
+<span class="s2">               addresscompany,</span>
+<span class="s2">               address1,</span>
+<span class="s2">               address2,</span>
+<span class="s2">               addresscity,</span>
+<span class="s2">               addressstate,</span>
+<span class="s2">               addresscountry,</span>
+<span class="s2">               addresszip,</span>
+<span class="s2">               id_vendormain,</span>
+<span class="s2">               id_employee,</span>
+<span class="s2">               id_employeemain,</span>
+<span class="s2">               ct_addressfull,</span>
+<span class="s2">               sts_mainaddress,</span>
+<span class="s2">               addressdescription,</span>
+<span class="s2">               explode_company,</span>
+<span class="s2">               explode_address1,</span>
+<span class="s2">               explode_address2,</span>
+<span class="s2">               explode_city,</span>
+<span class="s2">               explode_state,</span>
+<span class="s2">               explode_zip,</span>
+<span class="s2">               explode_country,</span>
+<span class="s2">               id_customermain,</span>
+<span class="s2">               sts_omit,</span>
+<span class="s2">               id_companylocationshipping,</span>
+<span class="s2">               id_companylocationbilling,</span>
+<span class="s2">               gt_sffilterlayout,</span>
+<span class="s2">               gt_sffiltertable,</span>
+<span class="s2">               gn_id_customer,</span>
+<span class="s2">               gn_id_vendor,</span>
+<span class="s2">               cn_foundcount,</span>
+<span class="s2">               explode_description,</span>
+<span class="s2">               gn_portalcolumn,</span>
+<span class="s2">               id_contact,</span>
+<span class="s2">               id_marketing,</span>
+<span class="s2">               id_quote,</span>
+<span class="s2">               gt_id_block,</span>
+<span class="s2">               gn_id_marketingdb_working,</span>
+<span class="s2">               gt_access_overall,</span>
+<span class="s2">               gt_access_record,</span>
+<span class="s2">               gt_customexport_category,</span>
+<span class="s2">               gt_customexport_source,</span>
+<span class="s2">               gt_customreport_category,</span>
+<span class="s2">               gt_customreport_source,</span>
+<span class="s2">               gn_all,</span>
+<span class="s2">               sum_all,</span>
+<span class="s2">               id_marketingimport,</span>
+<span class="s2">               ct_addressfullprint,</span>
+<span class="s2">               id_order,</span>
+<span class="s2">               shipmethod,</span>
+<span class="s2">               gn_id_order,</span>
+<span class="s2">               gn_id_lineoe,</span>
+<span class="s2">               ct_citystatezipcountry,</span>
+<span class="s2">               id_employeeown,</span>
+<span class="s2">               sts_ownershipmode,</span>
+<span class="s2">               sts_ownershiptype,</span>
+<span class="s2">               ct_contactemail,</span>
+<span class="s2">               ct_contactname,</span>
+<span class="s2">               ct_id_orderkeyimport,</span>
+<span class="s2">               id_orderkeyalpha</span>
+<span class="s2">            FROM Addr</span>
+<span class="s2">            WHERE id_order = </span><span class="si">{</span><span class="n">order_number</span><span class="si">}</span><span class="s2"></span>
+<span class="s2">               &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">sql</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
