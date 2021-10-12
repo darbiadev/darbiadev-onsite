@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>darbiadev_onsite.lib &mdash; darbiadev-onsite 0.6.0 documentation</title>
+  <title>darbiadev_onsite.lib &mdash; darbiadev-onsite 0.7.0 documentation</title>
   
 
   
@@ -200,10 +200,10 @@
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">order_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="n">order_sql</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sql/order.sql&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
-        <span class="n">line_sql</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sql/linesoe.sql&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
-        <span class="n">address_sql</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sql/address.sql&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
-        <span class="n">package_sql</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sql/packimport.sql&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
+        <span class="n">order_sql</span> <span class="o">=</span> <span class="n">_get_sql</span><span class="p">(</span><span class="s2">&quot;order.sql&quot;</span><span class="p">,</span> <span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
+        <span class="n">line_sql</span> <span class="o">=</span> <span class="n">_get_sql</span><span class="p">(</span><span class="s2">&quot;linesoe.sql&quot;</span><span class="p">,</span> <span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
+        <span class="n">address_sql</span> <span class="o">=</span> <span class="n">_get_sql</span><span class="p">(</span><span class="s2">&quot;address.sql&quot;</span><span class="p">,</span> <span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
+        <span class="n">package_sql</span> <span class="o">=</span> <span class="n">_get_sql</span><span class="p">(</span><span class="s2">&quot;packimport.sql&quot;</span><span class="p">,</span> <span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
 
         <span class="n">order_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">order_sql</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">order_data</span><span class="p">[</span><span class="s2">&quot;lines&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">line_sql</span><span class="p">)</span>
@@ -211,6 +211,15 @@
         <span class="n">order_data</span><span class="p">[</span><span class="s2">&quot;packages&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">package_sql</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">order_data</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">_get_sql</span><span class="p">(</span>
+        <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">order_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">files</span><span class="p">(</span><span class="s2">&quot;darbiadev_onsite&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sql/</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="n">sql</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">sql</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
 </pre></div>
 
            </div>
