@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>darbiadev_onsite.lib &mdash; darbiadev-onsite 0.5.0 documentation</title>
+  <title>darbiadev_onsite.lib &mdash; darbiadev-onsite 0.6.0 documentation</title>
   
 
   
@@ -179,10 +179,10 @@
             <span class="bp">self</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">return</span> <span class="n">jaydebeapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span>
-            <span class="s1">&#39;com.filemaker.jdbc.Driver&#39;</span><span class="p">,</span>
+            <span class="s2">&quot;com.filemaker.jdbc.Driver&quot;</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_connection_url</span><span class="p">,</span>
             <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">__username</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">__password</span><span class="p">],</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">files</span><span class="p">(</span><span class="s1">&#39;darbiadev_onsite&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">&#39;vendor/fmjdbc.jar&#39;</span><span class="p">)),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">files</span><span class="p">(</span><span class="s2">&quot;darbiadev_onsite&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s2">&quot;vendor/fmjdbc.jar&quot;</span><span class="p">)),</span>
         <span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_make_query</span><span class="p">(</span>
@@ -199,269 +199,18 @@
 <div class="viewcode-block" id="OnSiteServices.get_order"><a class="viewcode-back" href="../../api/darbiadev_onsite.html#darbiadev_onsite.lib.OnSiteServices.get_order">[docs]</a>    <span class="k">def</span> <span class="nf">get_order</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">order_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-        <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">       SELECT </span>
-<span class="s2">           Orders.date_Creation,</span>
-<span class="s2">           Orders.gn_ID_User,</span>
-<span class="s2">           Orders.ID_Order,</span>
-<span class="s2">           Orders.id_Customer,</span>
-<span class="s2">           Orders.date_OrderPlaced,</span>
-<span class="s2">           Orders.date_OrderRequestedToShip,</span>
-<span class="s2">           Orders.date_OrderDropDead,</span>
-<span class="s2">           Orders.id_OrderTypeSerial,</span>
-<span class="s2">           Orders.id_OrderType,</span>
-<span class="s2">           Orders.gt_ContactDepartment,</span>
-<span class="s2">           Orders.gt_ContactNameFull,</span>
-<span class="s2">           Orders.gt_ContactTitle,</span>
-<span class="s2">           Orders.ContactFirst,</span>
-<span class="s2">           Orders.ContactLast,</span>
-<span class="s2">           Orders.ContactPhone,</span>
-<span class="s2">           Orders.ContactFax,</span>
-<span class="s2">           Orders.ContactEmail,</span>
-<span class="s2">           Orders.NotesOnOrder,</span>
-<span class="s2">           Orders.ContactTitle,</span>
-<span class="s2">           Orders.ContactDepartment,</span>
-<span class="s2">           Orders.CustomerPurchaseOrder,</span>
-<span class="s2">           Orders.TermsName,</span>
-<span class="s2">           Orders.id_EmpSalesperson,</span>
-<span class="s2">           Orders.id_EmpCreatedBy,</span>
-<span class="s2">           Orders.CustomerType,</span>
-<span class="s2">           Orders.id_CompanyLocation,</span>
-<span class="s2">           Orders.id_EmployeeOwn,</span>
-<span class="s2">           Orders.sts_GroupSalesMain,</span>
-<span class="s2">           Orders.sts_Invoiced,</span>
-<span class="s2">           Orders.cn_sts_HoldOrderGraphic,</span>
-<span class="s2">           Orders.sts_ArtDone,</span>
-<span class="s2">           Orders.sts_Purchased,</span>
-<span class="s2">           Orders.sts_PurchasedSub,</span>
-<span class="s2">           Orders.sts_Received,</span>
-<span class="s2">           Orders.sts_ReceivedSub,</span>
-<span class="s2">           Orders.sts_Produced,</span>
-<span class="s2">           Orders.sts_Shipped,</span>
-<span class="s2">           Orders.sts_OwnershipMode,</span>
-<span class="s2">           Orders.sts_OwnershipType,</span>
-<span class="s2">           Orders.ct_id_EmployeeOwn,</span>
-<span class="s2">           Orders.sts_Attachment,</span>
-<span class="s2">           Orders.cn_sts_HoldOrder,</span>
-<span class="s2">           Orders.cn_sts_Rush,</span>
-<span class="s2">           Orders.sts_RushOverride,</span>
-<span class="s2">           Orders.sts_Activity,</span>
-<span class="s2">           Orders.sts_Paid,</span>
-<span class="s2">           Orders.sts_BackOrder,</span>
-<span class="s2">           Orders.sts_EDP_Hold,</span>
-<span class="s2">           Orders.CustomerServiceRep,</span>
-<span class="s2">           Orders.cn_sts_ShippingSpecType,</span>
-<span class="s2">           Orders.HoldOrderText,</span>
-<span class="s2">           Orders.id_SalesStatus,</span>
-<span class="s2">           Orders.CompanyName,</span>
-<span class="s2">           Orders.DesignTitleBlock,</span>
-<span class="s2">           Orders.id_DesignBlock,</span>
-<span class="s2">           Orders.gt_ID_Block,</span>
-<span class="s2">           Orders.ct_ContactNameFull,</span>
-<span class="s2">           Orders.cn_sts_Assembly,</span>
-<span class="s2">           Orders.cn_TotalProductQty_Pricing,</span>
-<span class="s2">           Orders.date_OrderInvoiced,</span>
-<span class="s2">           Orders.Invoice_Field01,</span>
-<span class="s2">           Orders.Invoice_Field02,</span>
-<span class="s2">           Orders.EmployeeNamePurchasing,</span>
-<span class="s2">           Orders.date_Stamp_Invoiced,</span>
-<span class="s2">           Orders.id_Employee_Stamp_Invoiced,</span>
-<span class="s2">           Orders.TermsDays,</span>
-<span class="s2">           Orders.cd_date_PaymentDue,</span>
-<span class="s2">           Orders.date_Today,</span>
-<span class="s2">           Orders.cn_sts_Receivable,</span>
-<span class="s2">           Orders.NotesOnArt,</span>
-<span class="s2">           Orders.NotesOnReceiving,</span>
-<span class="s2">           Orders.NotesOnProduction,</span>
-<span class="s2">           Orders.NotesOnShipping,</span>
-<span class="s2">           Orders.NotesOnAccounting,</span>
-<span class="s2">           Orders.cn_TotalProductQty_Act,</span>
-<span class="s2">           Orders.cn_TotalProductQty_Current,</span>
-<span class="s2">           Orders.cn_TotalProductQty_Imprints,</span>
-<span class="s2">           Orders.id_ReceivingStatus,</span>
-<span class="s2">           Orders.id_DiscountLevel,</span>
-<span class="s2">           Orders.per_Discount,</span>
-<span class="s2">           Orders.DiscountNote,</span>
-<span class="s2">           Orders.cur_DiscountFlat,</span>
-<span class="s2">           Orders.date_External,</span>
-<span class="s2">           Orders.ExtSource,</span>
-<span class="s2">           Orders.ExtOrderID,</span>
-<span class="s2">           Orders.gt_SFFilterLayout_Receivables,</span>
-<span class="s2">           Orders.TextOrder,</span>
-<span class="s2">           Orders.ct_TextOrder,</span>
-<span class="s2">           Orders.gd_DateAgingAsOf,</span>
-<span class="s2">           Orders.date_ForAging,</span>
-<span class="s2">           Orders.id_ShippingStatus,</span>
-<span class="s2">           Orders.cn_TotalProductQty_ToProduce,</span>
-<span class="s2">           Orders.date_ProductionScheduled,</span>
-<span class="s2">           Orders.cd_date_Shipped_Max,</span>
-<span class="s2">           Orders.gt_FormFilter,</span>
-<span class="s2">           Orders.sum_cur_Shipping,</span>
-<span class="s2">           Orders.sum_cur_Subtotal,</span>
-<span class="s2">           Orders.cn_EventTimeSetup,</span>
-<span class="s2">           Orders.cn_EventTimeRun,</span>
-<span class="s2">           Orders.cn_EventTimeJob,</span>
-<span class="s2">           Orders.cm_EventTimeJobDisplay,</span>
-<span class="s2">           Orders.cm_EventTimeRunDisplay,</span>
-<span class="s2">           Orders.cm_EventTimeSetupDisplay,</span>
-<span class="s2">           Orders.cn_MachinesUsed,</span>
-<span class="s2">           Orders.cn_EventDesignCount,</span>
-<span class="s2">           Orders.cn_DesignCount,</span>
-<span class="s2">           Orders.cn_LocationCount,</span>
-<span class="s2">           Orders.cn_EventLocationCount,</span>
-<span class="s2">           Orders.cn_EventUsingDesignCount,</span>
-<span class="s2">           Orders.cn_EventNotUsingDesignCount,</span>
-<span class="s2">           Orders.cn_EventUsingDesignQty,</span>
-<span class="s2">           Orders.cn_EventNotUsingDesignQty,</span>
-<span class="s2">           Orders.cn_DaysToComplete,</span>
-<span class="s2">           Orders.cn_DaysLate,</span>
-<span class="s2">           Orders.date_OrderShipped,</span>
-<span class="s2">           Orders.date_DesignScheduled,</span>
-<span class="s2">           Orders.cn_StitchCount,</span>
-<span class="s2">           Orders.cn_ColorsCount,</span>
-<span class="s2">           Orders.sum_cn_ColorsCount,</span>
-<span class="s2">           Orders.sum_cn_EventTimeJob,</span>
-<span class="s2">           Orders.sum_cn_LocationCount,</span>
-<span class="s2">           Orders.sum_cn_StitchCount,</span>
-<span class="s2">           Orders.sum_cn_TotalProductQty_Imprints,</span>
-<span class="s2">           Orders.sum_cn_TotalProductQty_ToProduce,</span>
-<span class="s2">           Orders.sum_cn_DesignCount,</span>
-<span class="s2">           Orders.sum_cm_EventTimeRunDisplay,</span>
-<span class="s2">           Orders.sum_cm_EventTimeSetupDisplay,</span>
-<span class="s2">           Orders.sum_cm_EventTimejobDisplay,</span>
-<span class="s2">           Orders.date_ProductionDone,</span>
-<span class="s2">           Orders.date_DesignDone,</span>
-<span class="s2">           Orders.NotesOnHold,</span>
-<span class="s2">           Orders.NotesToArt,</span>
-<span class="s2">           Orders.NotesToPurchasing,</span>
-<span class="s2">           Orders.NotesToReceiving,</span>
-<span class="s2">           Orders.NotesToProduction,</span>
-<span class="s2">           Orders.NotesToFinishing,</span>
-<span class="s2">           Orders.NotesFormsOrderApproval,</span>
-<span class="s2">           Orders.NotesToAccounting,</span>
-<span class="s2">           Orders.NotesFormsInvoice,</span>
-<span class="s2">           Orders.NotesFormsPackingList,</span>
-<span class="s2">           Orders.NotesToWebCustomer,</span>
-<span class="s2">           Orders.NotesToWebSalesperson,</span>
-<span class="s2">           Orders.NotesToShipping,</span>
-<span class="s2">           Orders.NotesOnPurchasing,</span>
-<span class="s2">           Orders.NotesToPurchasingSub,</span>
-<span class="s2">           Orders.NotesOnPurchasingSub</span>
-<span class="s2">           FROM Orders </span>
-<span class="s2">           WHERE Orders.ID_Order = </span><span class="si">{</span><span class="n">order_number</span><span class="si">}</span><span class="s2"></span>
-<span class="s2">     &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">sql</span><span class="p">)</span></div>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="n">order_sql</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sql/order.sql&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
+        <span class="n">line_sql</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sql/linesoe.sql&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
+        <span class="n">address_sql</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sql/address.sql&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
+        <span class="n">package_sql</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sql/packimport.sql&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
 
-<div class="viewcode-block" id="OnSiteServices.get_order_lines"><a class="viewcode-back" href="../../api/darbiadev_onsite.html#darbiadev_onsite.lib.OnSiteServices.get_order_lines">[docs]</a>    <span class="k">def</span> <span class="nf">get_order_lines</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">order_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-        <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">        SELECT</span>
-<span class="s2">           LinesOE.ID_LineOE,</span>
-<span class="s2">           LinesOE.PartNumber,</span>
-<span class="s2">           LinesOE.PartColorRange,</span>
-<span class="s2">           LinesOE.PartColor,</span>
-<span class="s2">           LinesOE.PartDescription,</span>
-<span class="s2">           LinesOE.Size01_Req,</span>
-<span class="s2">           LinesOE.Size02_Req,</span>
-<span class="s2">           LinesOE.Size03_Req,</span>
-<span class="s2">           LinesOE.Size04_Req,</span>
-<span class="s2">           LinesOE.Size05_Req,</span>
-<span class="s2">           LinesOE.Size06_Req,</span>
-<span class="s2">           LinesOE.cn_LineQuantity_Req,</span>
-<span class="s2">           LinesOE.id_OrderType,</span>
-<span class="s2">           LinesOE.OrderInstructions,</span>
-<span class="s2">           LinesOE.OrderInvoiceNotes,</span>
-<span class="s2">           LinesOE.cnCur_LinePrice_Req</span>
-<span class="s2">        FROM LinesOE</span>
-<span class="s2">        WHERE LinesOE.id_order = </span><span class="si">{</span><span class="n">order_number</span><span class="si">}</span><span class="s2"></span>
-<span class="s2">     &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">sql</span><span class="p">)</span></div>
+        <span class="n">order_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">order_sql</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">order_data</span><span class="p">[</span><span class="s2">&quot;lines&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">line_sql</span><span class="p">)</span>
+        <span class="n">order_data</span><span class="p">[</span><span class="s2">&quot;addresses&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">address_sql</span><span class="p">)</span>
+        <span class="n">order_data</span><span class="p">[</span><span class="s2">&quot;packages&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">package_sql</span><span class="p">)</span>
 
-<div class="viewcode-block" id="OnSiteServices.get_address"><a class="viewcode-back" href="../../api/darbiadev_onsite.html#darbiadev_onsite.lib.OnSiteServices.get_address">[docs]</a>    <span class="k">def</span> <span class="nf">get_address</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">order_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]:</span>
-        <span class="n">sql</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">            SELECT &quot;All&quot;,</span>
-<span class="s2">               date_creation,</span>
-<span class="s2">               date_modification,</span>
-<span class="s2">               gn_id_address,</span>
-<span class="s2">               gn_id_unique,</span>
-<span class="s2">               gn_id_user,</span>
-<span class="s2">               id_address,</span>
-<span class="s2">               id_unique,</span>
-<span class="s2">               sts_archive,</span>
-<span class="s2">               time_creation,</span>
-<span class="s2">               time_modification,</span>
-<span class="s2">               timestamp_creation,</span>
-<span class="s2">               timestamp_modification,</span>
-<span class="s2">               id_customer,</span>
-<span class="s2">               id_vendor,</span>
-<span class="s2">               addresscompany,</span>
-<span class="s2">               address1,</span>
-<span class="s2">               address2,</span>
-<span class="s2">               addresscity,</span>
-<span class="s2">               addressstate,</span>
-<span class="s2">               addresscountry,</span>
-<span class="s2">               addresszip,</span>
-<span class="s2">               id_vendormain,</span>
-<span class="s2">               id_employee,</span>
-<span class="s2">               id_employeemain,</span>
-<span class="s2">               ct_addressfull,</span>
-<span class="s2">               sts_mainaddress,</span>
-<span class="s2">               addressdescription,</span>
-<span class="s2">               explode_company,</span>
-<span class="s2">               explode_address1,</span>
-<span class="s2">               explode_address2,</span>
-<span class="s2">               explode_city,</span>
-<span class="s2">               explode_state,</span>
-<span class="s2">               explode_zip,</span>
-<span class="s2">               explode_country,</span>
-<span class="s2">               id_customermain,</span>
-<span class="s2">               sts_omit,</span>
-<span class="s2">               id_companylocationshipping,</span>
-<span class="s2">               id_companylocationbilling,</span>
-<span class="s2">               gt_sffilterlayout,</span>
-<span class="s2">               gt_sffiltertable,</span>
-<span class="s2">               gn_id_customer,</span>
-<span class="s2">               gn_id_vendor,</span>
-<span class="s2">               cn_foundcount,</span>
-<span class="s2">               explode_description,</span>
-<span class="s2">               gn_portalcolumn,</span>
-<span class="s2">               id_contact,</span>
-<span class="s2">               id_marketing,</span>
-<span class="s2">               id_quote,</span>
-<span class="s2">               gt_id_block,</span>
-<span class="s2">               gn_id_marketingdb_working,</span>
-<span class="s2">               gt_access_overall,</span>
-<span class="s2">               gt_access_record,</span>
-<span class="s2">               gt_customexport_category,</span>
-<span class="s2">               gt_customexport_source,</span>
-<span class="s2">               gt_customreport_category,</span>
-<span class="s2">               gt_customreport_source,</span>
-<span class="s2">               gn_all,</span>
-<span class="s2">               sum_all,</span>
-<span class="s2">               id_marketingimport,</span>
-<span class="s2">               ct_addressfullprint,</span>
-<span class="s2">               id_order,</span>
-<span class="s2">               shipmethod,</span>
-<span class="s2">               gn_id_order,</span>
-<span class="s2">               gn_id_lineoe,</span>
-<span class="s2">               ct_citystatezipcountry,</span>
-<span class="s2">               id_employeeown,</span>
-<span class="s2">               sts_ownershipmode,</span>
-<span class="s2">               sts_ownershiptype,</span>
-<span class="s2">               ct_contactemail,</span>
-<span class="s2">               ct_contactname,</span>
-<span class="s2">               ct_id_orderkeyimport,</span>
-<span class="s2">               id_orderkeyalpha</span>
-<span class="s2">            FROM Addr</span>
-<span class="s2">            WHERE id_order = </span><span class="si">{</span><span class="n">order_number</span><span class="si">}</span><span class="s2"></span>
-<span class="s2">               &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">sql</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">order_data</span></div></div>
 </pre></div>
 
            </div>
