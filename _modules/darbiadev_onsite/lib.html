@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>darbiadev_onsite.lib &mdash; darbiadev-onsite 0.9.0 documentation</title>
+  <title>darbiadev_onsite.lib &mdash; darbiadev-onsite 0.10.0 documentation</title>
   
 
   
@@ -153,10 +153,9 @@
   <h1>Source code for darbiadev_onsite.lib</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python</span>
 
+<span class="kn">import</span> <span class="nn">jaydebeapi</span>
 <span class="kn">from</span> <span class="nn">importlib.resources</span> <span class="kn">import</span> <span class="n">files</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
-
-<span class="kn">import</span> <span class="nn">jaydebeapi</span>
 
 
 <div class="viewcode-block" id="OnSiteServices"><a class="viewcode-back" href="../../api/darbiadev_onsite.html#darbiadev_onsite.lib.OnSiteServices">[docs]</a><span class="k">class</span> <span class="nc">OnSiteServices</span><span class="p">:</span>
@@ -206,16 +205,32 @@
         <span class="n">order_data</span><span class="p">[</span><span class="s2">&quot;packages&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">_get_sql</span><span class="p">(</span><span class="s2">&quot;packimport.sql&quot;</span><span class="p">,</span> <span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">))</span>
         <span class="n">order_data</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">_get_sql</span><span class="p">(</span><span class="s2">&quot;events.sql&quot;</span><span class="p">,</span> <span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">))</span>
 
-        <span class="k">return</span> <span class="n">order_data</span></div></div>
+        <span class="k">return</span> <span class="n">order_data</span></div>
+
+<div class="viewcode-block" id="OnSiteServices.get_design_title"><a class="viewcode-back" href="../../api/darbiadev_onsite.html#darbiadev_onsite.lib.OnSiteServices.get_design_title">[docs]</a>    <span class="k">def</span> <span class="nf">get_design_title</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">design_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">design_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">_get_sql</span><span class="p">(</span><span class="s2">&quot;design_title.sql&quot;</span><span class="p">,</span> <span class="n">design_number</span><span class="o">=</span><span class="n">design_number</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">design_data</span><span class="p">[</span><span class="s2">&quot;DesignName&quot;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="OnSiteServices.get_designs_for_customer_purchase_order"><a class="viewcode-back" href="../../api/darbiadev_onsite.html#darbiadev_onsite.lib.OnSiteServices.get_designs_for_customer_purchase_order">[docs]</a>    <span class="k">def</span> <span class="nf">get_designs_for_customer_purchase_order</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">customer_purchase_order</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="n">designs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_query</span><span class="p">(</span><span class="n">sql</span><span class="o">=</span><span class="n">_get_sql</span><span class="p">(</span><span class="s2">&quot;designs_for_po.sql&quot;</span><span class="p">,</span> <span class="n">customer_purchase_order</span><span class="o">=</span><span class="n">customer_purchase_order</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">dct</span><span class="p">[</span><span class="s2">&quot;id_Design&quot;</span><span class="p">]))</span> <span class="k">for</span> <span class="n">dct</span> <span class="ow">in</span> <span class="n">designs</span><span class="p">]</span></div></div>
 
 
 <span class="k">def</span> <span class="nf">_get_sql</span><span class="p">(</span>
         <span class="n">file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">order_number</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">files</span><span class="p">(</span><span class="s2">&quot;darbiadev_onsite&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;sql/</span><span class="si">{</span><span class="n">file_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
     <span class="n">sql</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">sql</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">order_number</span><span class="o">=</span><span class="n">order_number</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sql</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 
            </div>
